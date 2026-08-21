@@ -10,7 +10,7 @@ describe('desktop crash evidence', () => {
 
     startDesktopCrashReporting(reporter, {
       productName: '才丰 Agent',
-      version: '2.0.1',
+      version: '1.0.0',
       platform: 'win32',
       arch: 'x64',
     })
@@ -19,7 +19,7 @@ describe('desktop crash evidence', () => {
       productName: '才丰 Agent',
       uploadToServer: false,
       globalExtra: {
-        appVersion: '2.0.1',
+        appVersion: '1.0.0',
         platform: 'win32',
         arch: 'x64',
       },
@@ -31,19 +31,19 @@ describe('desktop crash evidence', () => {
     beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:00:00.000Z',
       pid: 41,
-      version: '2.0.1',
+      version: '1.0.0',
     })
 
     const next = beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:01:00.000Z',
       pid: 42,
-      version: '2.0.1',
+      version: '1.0.0',
     })
 
     expect(next.previousRun).toEqual({
       startedAt: '2026-08-18T00:00:00.000Z',
       pid: 41,
-      version: '2.0.1',
+      version: '1.0.0',
     })
   })
 
@@ -52,7 +52,7 @@ describe('desktop crash evidence', () => {
     const run = beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:00:00.000Z',
       pid: 41,
-      version: '2.0.1',
+      version: '1.0.0',
     })
 
     expect(() => {
@@ -63,7 +63,7 @@ describe('desktop crash evidence', () => {
     const next = beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:01:00.000Z',
       pid: 42,
-      version: '2.0.1',
+      version: '1.0.0',
     })
     expect(next.previousRun).toBeUndefined()
   })
@@ -75,7 +75,7 @@ describe('desktop crash evidence', () => {
     const run = beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:01:00.000Z',
       pid: 42,
-      version: '2.0.1',
+      version: '1.0.0',
     })
 
     expect(run.previousRun).toEqual({ unreadable: true })
@@ -87,12 +87,12 @@ describe('desktop crash evidence', () => {
     const first = beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:00:00.000Z',
       pid: 41,
-      version: '2.0.1',
+      version: '1.0.0',
     })
     const second = beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:01:00.000Z',
       pid: 42,
-      version: '2.0.1',
+      version: '1.0.0',
     })
 
     first.markClean()
@@ -112,7 +112,7 @@ describe('desktop crash evidence', () => {
     expect(() => beginDesktopRun(statePath, {
       startedAt: '2026-08-18T00:01:00.000Z',
       pid: 42,
-      version: '2.0.1',
+      version: '1.0.0',
     })).toThrow('active run marker is invalid')
     expect(readFileSync(target, 'utf8')).toBe('{"outside":true}\n')
   })

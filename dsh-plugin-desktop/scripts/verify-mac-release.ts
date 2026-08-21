@@ -44,7 +44,7 @@ function defaultOptions(): MacReleaseVerificationOptions {
     distDir: process.argv[2] === undefined
       ? join(packageRoot, 'dist', 'mac-release')
       : resolve(process.argv[2]),
-    productName: 'DSH Desktop',
+    productName: '才丰 Agent',
     listDmgs,
     makeMountPoint: () => mkdtempSync(join(tmpdir(), 'dsh-desktop-dmg-')),
     run,

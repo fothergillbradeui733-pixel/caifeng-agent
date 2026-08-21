@@ -35,10 +35,10 @@ function options(
   return {
     platform,
     appExecutable: platform === 'win32'
-      ? 'C:\\Program Files\\才丰 100% Agent\\才丰 Agent.exe'
-      : "/Applications/才丰 O'Brien.app/Contents/MacOS/才丰 Agent",
+      ? 'C:\\Program Files\\CaiFeng 100% Agent\\CaiFeng Agent.exe'
+      : "/Applications/CaiFeng O'Brien.app/Contents/MacOS/CaiFeng Agent",
     pnpmBinPath: platform === 'win32'
-      ? 'C:\\Program Files\\才丰 Agent\\resources\\app.asar.unpacked\\node_modules\\pnpm\\bin\\pnpm.mjs'
+      ? 'C:\\Program Files\\CaiFeng Agent\\resources\\app.asar.unpacked\\node_modules\\pnpm\\bin\\pnpm.mjs'
       : "/Applications/DSH O'Brien.app/Contents/Resources/app.asar.unpacked/node_modules/pnpm/bin/pnpm.mjs",
     electronVersion: '43.4.0',
     stateDir,

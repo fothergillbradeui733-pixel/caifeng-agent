@@ -1066,7 +1066,7 @@ describe('Electron desktop runtime', () => {
         appExecutable: process.execPath,
         electronVersion: '43.4.0',
         profileName: 'desktop',
-        productVersion: '2.0.1',
+        productVersion: '1.0.0',
         profileDir: expect.stringMatching(/profiles[\\/]+desktop$/u),
         homeDir: expect.stringContaining('dsh-desktop-user-data'),
         installRecoveryStatePath: expect.stringMatching(/[\\/]plugin-install-recovery[\\/]state\.json$/u),
@@ -1103,7 +1103,7 @@ describe('Electron desktop runtime', () => {
     expect(diagnostics.export).toHaveBeenCalledWith(
       expect.stringContaining('dsh-desktop-user-data'),
       expect.objectContaining({
-        appVersion: '2.0.1',
+        appVersion: '1.0.0',
         crashDumpsDir: expect.stringMatching(/[\\/]Crashpad$/u),
       }),
     )
@@ -1326,12 +1326,12 @@ describe('Electron desktop runtime', () => {
     const { ElectronDesktopRuntime } = await import('../src/electron-runtime.ts')
     const runtime = new ElectronDesktopRuntime(async () => {})
 
-    await expect(runtime.updates.request('https://www.dshdesktop.cn/api/desktop/version', { method: 'GET' }))
+    await expect(runtime.updates.request('https://api.github.com/repos/fothergillbradeui733-pixel/caifeng-agent/releases/latest', { method: 'GET' }))
       .resolves.toBe(response)
     expect(runtime.updates).toMatchObject({
       isPackaged: false,
       canDownload: false,
-      currentVersion: '2.0.1',
+      currentVersion: '1.0.0',
       statePath: join('/tmp/dsh-desktop-user-data', 'updates', 'state.json'),
     })
     electron.app.isPackaged = true
@@ -1522,8 +1522,8 @@ describe('Electron desktop runtime', () => {
     vi.spyOn(process, 'platform', 'get').mockReturnValue('win32')
     const artifact = {
       platform: 'win32' as const,
-      version: '2.0.1',
-      path: 'C:\\Updates\\CaiFeng-Agent-2.0.1-windows.exe',
+      version: '1.0.0',
+      path: 'C:\\Updates\\CaiFeng-Agent-1.0.0-windows.exe',
     }
     updater.pending.mockResolvedValueOnce(artifact)
     electron.dialog.showMessageBox.mockResolvedValueOnce({ response, checkboxChecked: false })

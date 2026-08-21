@@ -386,7 +386,7 @@ describe('published package surface', () => {
   it('fixes the installed application identity', () => {
     expect(manifest.version).toBe(workspaceManifest.version)
     expect(manifest.build?.productName).toBe('才丰 Agent')
-    expect(manifest.build?.appId).toBe('ai.deepseek.dsh.desktop')
+    expect(manifest.build?.appId).toBe('com.caifeng.agent')
     expect(manifest.build?.asarUnpack).toEqual([
       'package.json',
       'cordis.patch.yml',
@@ -546,7 +546,7 @@ describe('published package surface', () => {
       .update(readFileSync(new URL('build/app-icon.png', packageRoot)))
       .digest('hex')
 
-    expect(digest).toBe('315fbc6e57ff1f34894f21f66fb7f9f26deccf78333c71fad21a6cec64e7de80')
+    expect(digest).toBe('7aed3ef9877474c55c65245660e515984eaf11281597eb4476c50cba93a307d9')
   })
 
   it('generates a centered macOS icon with a 100-pixel visual inset', async () => {
