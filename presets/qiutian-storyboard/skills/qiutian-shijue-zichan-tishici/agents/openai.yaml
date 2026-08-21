@@ -1,0 +1,4 @@
+interface:
+  display_name: "秋天 视觉资产提示词"
+  short_description: "从READY交接精确生成、补齐、升版并审计全季视觉资产库"
+  default_prompt: "使用 $qiutian-shijue-zichan-tishici；若项目含 comic-adapt-fidelity 全季 READY 交接，严格按上游建卡集合一次性生成正式资产库与索引。"

@@ -1,0 +1,101 @@
+name: Release
+
+# 才丰 Agent 发布流水线：
+# 打 tag vX.Y.Z 即触发 —— 在 Windows runner 上构建 NSIS 安装包 + 免安装版，
+# 通过密钥扫描硬门槛后上传到 GitHub Releases。
+# 产物命名（与 app 内更新检查保持一致）：
+#   CaiFeng-Agent-<version>-x64-Setup.exe      （安装版）
+#   CaiFeng-Agent-<version>-x64-Portable.zip   （免安装版）
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DSH_TELEMETRY_DISABLED: '1'
+
+jobs:
+  release-windows:
+    runs-on: windows-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.23.2
+
+      - run: corepack enable
+
+      - name: Resolve Yarn cache folder
+        id: yarn-cache
+        run: echo "dir=$(yarn config get cacheFolder)" >> "$env:GITHUB_OUTPUT"
+
+      - uses: actions/cache@v6
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: yarn-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('yarn.lock', '.yarnrc.yml') }}
+
+      - run: yarn install --immutable
+
+      - name: Full product gate
+        run: yarn check
+
+      - name: Secret scan (hard gate)
+        shell: bash
+        run: |
+          set -euo pipefail
+          # 拒绝任何疑似密钥/令牌/个人数据文件进入发布产物
+          if grep -rInE \
+              '(ghp_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{16,}|api[_-]?key[[:space:]]*[:=][[:space:]]*["'"'"']?[A-Za-z0-9]{16,})' \
+              --include='*.yaml' --include='*.yml' --include='*.json' --include='*.md' --include='*.ts' \
+              . \
+              | grep -vE 'node_modules|/\.git/|profiles/desktop/package.json|THIRD_PARTY_NOTICES' ; then
+            echo '::error::敏感信息泄漏：发布产物中包含疑似密钥/令牌，已中止。'
+            exit 1
+          fi
+          echo '密钥扫描通过 ✅'
+
+      - name: Build Windows installer (NSIS)
+        env:
+          DSH_PACKAGE_CHECK_ALREADY_RAN: '1'
+        run: yarn workspace dsh-plugin-desktop dist:win
+
+      - name: Build Windows portable archive
+        env:
+          DSH_PACKAGE_CHECK_ALREADY_RAN: '1'
+        run: yarn workspace dsh-plugin-desktop dist:win-portable
+
+      - name: Publish to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: 才丰 Agent ${{ github.ref_name }}
+          body: |
+            ## 才丰 Agent ${{ github.ref_name }}
+
+            - **CaiFeng-Agent-${{ github.ref_name }}-x64-Setup.exe** — Windows 安装版（推荐）
+            - **CaiFeng-Agent-${{ github.ref_name }}-x64-Portable.zip** — Windows 免安装版
+
+            ### 安装
+            1. 下载 Setup 安装包并运行，或解压 Portable 包直接运行 `才丰 Agent.exe`
+            2. 首次启动会自动安装预置插件（约需几分钟）
+            3. 如需使用「秋天短剧制作」预设，运行仓库内 `scripts/install-profile.ps1`
+
+            > 本项目为社区非官方发行版，基于 MIT 开源的 DeepSeek Harness 桌面端构建。
+          files: |
+            dsh-plugin-desktop/dist/*.exe
+            dsh-plugin-desktop/dist/*.zip
+          fail_on_unmatched_files: true

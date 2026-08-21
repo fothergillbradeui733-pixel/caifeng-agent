@@ -1,0 +1,6 @@
+interface:
+  display_name: "秋天短剧转分镜专属skill"
+  short_description: "短剧转分镜统一入口：苏格拉底确认→模块路由（仿真人竖屏A/横屏B/3D漫剧C）"
+  default_prompt: "Use $qiutian-短剧转分镜专属skill as the sole authority for converting scripts into storyboard Blocks. Always start with the stage-zero Socratic confirmation (need, aspect ratio, render style) and route to module A/B/C."
+policy:
+  allow_implicit_invocation: true

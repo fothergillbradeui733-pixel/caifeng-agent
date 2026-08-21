@@ -1,0 +1,4 @@
+interface:
+  display_name: "秋天 网文漫剧改编"
+  short_description: "四契约、动态批次并行与逐集收据驱动的长篇网文漫剧改编"
+  default_prompt: "使用 $qiutian-wangwen-manju-gaibian 持续完成我指定的小说改编范围，并按当前项目流程签发结果。"

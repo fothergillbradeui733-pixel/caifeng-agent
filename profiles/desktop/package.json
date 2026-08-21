@@ -1,0 +1,48 @@
+{
+  "name": "dsh-profile-desktop",
+  "private": true,
+  "dependencies": {
+    "@dickpy/dsh-imagegen": "1.0.6",
+    "deepseek-harness-wallet": "^0.1.3",
+    "deepseek-harness-zh_pro": "^0.5.0",
+    "dsh-at-file": "https://github.com/omdsh-dev/dsh-at-file/archive/refs/tags/v0.6.2.tar.gz",
+    "dsh-better-sidebar": "^0.12.2",
+    "dsh-dream-skin": "^0.2.5",
+    "dsh-file-uploads": "github:l541402398/dsh-file-uploads",
+    "dsh-memory": "^0.1.0",
+    "dsh-notification": "github:omdsh-dev/dsh-notification",
+    "dsh-notifier": "^0.5.0",
+    "dsh-open-with": "^0.1.1",
+    "dsh-plugin-recall": "^0.1.1",
+    "dsh-plugin-search": "github:shinjiyu/dsh-plugin-search",
+    "dsh-session-export": "github:bwndlct/dsh-session-export",
+    "dsh-store": "^0.5.1",
+    "dsh-usage-stats": "^0.1.15",
+    "dsh-vision-router": "^1.3.0"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "deepseek-harness-zh_pro",
+        "dsh-memory",
+        "dsh-store",
+        "deepseek-harness-wallet",
+        "dsh-dream-skin",
+        "dsh-notifier",
+        "dsh-open-with",
+        "dsh-plugin-recall",
+        "dsh-usage-stats",
+        "dsh-vision-router",
+        "dsh-file-uploads",
+        "dsh-notification",
+        "dsh-plugin-search",
+        "dsh-session-export",
+        "dsh-at-file",
+        "dsh-better-sidebar",
+        "@dickpy/dsh-imagegen"
+      ]
+    }
+  }
+}

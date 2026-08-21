@@ -1,0 +1,4 @@
+interface:
+  display_name: "qiutian-拆解爆款写剧本"
+  short_description: "深度拆解样本、苏格拉底共创剧情，并交付完整短剧与AI制作资产"
+  default_prompt: "使用 $qiutian-chaijie-baokuan-xiejuben，先通过逐层苏格拉底单问把剧情设定讨论透，再完成大纲、正式剧本、审查与AI制作交付。"
