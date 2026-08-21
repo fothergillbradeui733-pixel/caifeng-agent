@@ -57,11 +57,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          # 拒绝任何疑似密钥/令牌/个人数据文件进入发布产物
+          # 只扫描会进入安装包的目录；deepseek-harness 是上游子模块（不进产物），
+          # node_modules 是依赖（不进产物），均排除，避免误伤示例字符串。
           if grep -rInE \
               '(ghp_[A-Za-z0-9]{20,}|sk-[A-Za-z0-9]{16,}|api[_-]?key[[:space:]]*[:=][[:space:]]*["'"'"']?[A-Za-z0-9]{16,})' \
               --include='*.yaml' --include='*.yml' --include='*.json' --include='*.md' --include='*.ts' \
-              . \
+              dsh-plugin-desktop/src dsh-plugin-desktop/build dsh-plugin-desktop/package.json \
+              presets profiles scripts .github \
               | grep -vE 'node_modules|/\.git/|profiles/desktop/package.json|THIRD_PARTY_NOTICES' ; then
             echo '::error::敏感信息泄漏：发布产物中包含疑似密钥/令牌，已中止。'
             exit 1
