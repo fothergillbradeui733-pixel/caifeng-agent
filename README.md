@@ -31,13 +31,14 @@
 
 macOS 版需自行从源码构建（见下文「开发构建」），或等待后续 Release。
 
-### 启用「秋天短剧制作」预设
+### 启用「秋天短剧制作」预设（约 3 分钟）
 
-插件安装完成后，运行仓库内脚本以启用内置的短剧工作流预设：
+1. 在 [Releases](https://github.com/fothergillbradeui733-pixel/caifeng-agent/releases) 下载 **`caifeng-preset-v1.0.0.zip`**（预设包，约 500 KB）
+2. 解压后运行安装脚本：
 
 ```powershell
-# Windows（PowerShell）
-.\scripts\install-profile.ps1
+# Windows：右键 scripts\install-profile.ps1 → 使用 PowerShell 运行
+# 如被系统拦截，先执行：Set-ExecutionPolicy -Scope Process Bypass
 ```
 
 ```bash
@@ -46,7 +47,9 @@ chmod +x scripts/install-profile.sh
 ./scripts/install-profile.sh
 ```
 
-脚本会复制 `qiutian-storyboard` 预设到 `~/.dsh/.agent-presets/`，并设置默认 Agent 预设。重启应用后，新开会话即进入「秋天短剧制作」模式。
+3. 脚本会复制 `qiutian-storyboard` 预设到 `~/.dsh/.agent-presets/` 并设置默认预设。**重启才丰 Agent**，新开会话即进入「秋天短剧制作」模式。
+
+> 完整安装流程：**安装包 → 首次启动（插件自动安装，几分钟）→ 预设包 → 重启**。
 
 ## 首次使用
 

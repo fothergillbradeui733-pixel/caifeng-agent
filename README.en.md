@@ -31,13 +31,14 @@ The first launch automatically installs the preloaded plugins (needs network, a 
 
 Build from source (see "Development" below), or wait for a future Release.
 
-### Enable the Qiutian preset
+### Enable the Qiutian preset (~3 min)
 
-After the plugins are installed, run the repo script to enable the built-in short-drama workflow:
+1. Download **`caifeng-preset-v1.0.0.zip`** from [Releases](https://github.com/fothergillbradeui733-pixel/caifeng-agent/releases) (~500 KB)
+2. Unzip it and run the install script:
 
 ```powershell
-# Windows (PowerShell)
-.\scripts\install-profile.ps1
+# Windows: right-click scripts\install-profile.ps1 → Run with PowerShell
+# If blocked, run first: Set-ExecutionPolicy -Scope Process Bypass
 ```
 
 ```bash
@@ -46,7 +47,9 @@ chmod +x scripts/install-profile.sh
 ./scripts/install-profile.sh
 ```
 
-The script copies the `qiutian-storyboard` preset into `~/.dsh/.agent-presets/` and sets it as the default agent preset. Restart the app and open a new session to enter the Qiutian Short-Drama mode.
+3. The script copies the `qiutian-storyboard` preset into `~/.dsh/.agent-presets/` and sets it as the default agent preset. **Restart the app** and open a new session to enter the Qiutian Short-Drama mode.
+
+> Full install flow: **installer → first launch (plugins auto-install, a few minutes) → preset package → restart**.
 
 ## First Run
 
